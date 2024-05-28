@@ -7,7 +7,7 @@ from os.path import join
 from requests import get as rget
 
 from utils.deploy import deploy_tar_gz
-from utils.exceptions import GithubException, SignatureException
+from utils.exceptions import GithubException, SignatureException, DeployException
 from utils.logger import setup_logger, get_logger
 from utils.signature import verify_signature
 
@@ -81,11 +81,13 @@ def update_from_github():
                 get_logger().debug(release_file.content)
                 raise GithubException("Can't download asset file from latest release")
 
-            deploy_tar_gz(WEB_ROOT, release_file.content)
+            return deploy_tar_gz(WEB_ROOT, release_file.content)
 
     except GithubException as e:
         return e.args[0], e.error_code
     except SignatureException as e:
+        return e.args[0], e.error_code
+    except DeployException as e:
         return e.args[0], e.error_code
 
 
