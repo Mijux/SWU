@@ -5,6 +5,8 @@ ECHO=$(whereis echo | awk '{print $2}')
 TEE=$(whereis tee | awk '{print $2}')
 MKDIR=$(whereis mkdir | awk '{print $2}')
 PYTHON3=$(whereis python3 | awk '{print $2}')
+SYSTEMCTL=$(whereis systemctl | awk '{print $2}')
+
 
 if [ "$EUID" -ne 0 ]
   then $ECHO "Please run as root"
@@ -53,3 +55,7 @@ read -p "Type user > " username
 $ECHO -e "[Unit]\nDescription=SWU service by Mijux\nAfter=multi-user.target\n" | $TEE /etc/systemd/system/swu.service >/dev/null
 $ECHO -e "[Service]\nType=simple\nRestart=always\nUser=${username}\nExecStart=bash ${destination_bin}/service-run.sh\n" | $TEE -a /etc/systemd/system/swu.service >/dev/null
 $ECHO -e "[Install]\nWantedBy=multi-user.target" | $TEE -a /etc/systemd/system/swu.service >/dev/null
+
+$SYSTEMCTL daemon-reload
+$SYSTEMCTL start swu.service
+$SYSTEMCTL enable swu.service
