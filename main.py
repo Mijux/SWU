@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from os import getenv
 from os.path import join
 from requests import get as rget
@@ -35,7 +35,7 @@ def update_from_github():
         payload = request.get_json()
     else:
         get_logger().warning("Payload must be json")
-        return "Payload must be json", 403
+        return jsonify({"msg": "Payload must be json"}), 403
 
     try:
         if payload.get("action") == "created":
@@ -81,14 +81,17 @@ def update_from_github():
                 get_logger().debug(release_file.content)
                 raise GithubException("Can't download asset file from latest release")
 
-            return deploy_tar_gz(WEB_ROOT, release_file.content)
+            ret = deploy_tar_gz(WEB_ROOT, release_file.content)
+            return jsonify({"msg": ret[0]}), ret[1]
 
     except GithubException as e:
-        return e.args[0], e.error_code
+        return jsonify({"msg": e.args[0]}), e.error_code
     except SignatureException as e:
-        return e.args[0], e.error_code
+        return jsonify({"msg": e.args[0]}), e.error_code
     except DeployException as e:
-        return e.args[0], e.error_code
+        return jsonify({"msg": e.args[0]}), e.error_code
+
+    return jsonify({"msg": "Wrong request"}), 403
 
 
 if __name__ == "__main__":
