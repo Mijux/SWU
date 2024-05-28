@@ -33,9 +33,7 @@ $ECHO "Copying script files to /usr/local/bin/swu/ ..."
 destination_bin=/usr/local/bin/swu
 
 $MKDIR -p $destination_bin
-$CP -r -t $destination_bin .env requirements.txt main.py utils/ gunicorn_config.py
-
-$ECHO "Script files copied !"
+$CP -r -t $destination_bin .env requirements.txt main.py utils/ gunicorn_config.py service-run.sh
 
 ##############
 
@@ -48,8 +46,10 @@ $destination_bin/.venv/bin/pip3 install -r $destination_bin/requirements.txt
 
 $ECHO "Creating service file at /etc/systemd/system/swu.service ..."
 
-$ECHO -e "[Unit]\nDescription=SWU service by Mijux\nAfter=multi-user.target\n" | $TEE /etc/systemd/system/swu.service >/dev/null
-$ECHO -e "[Service]\nType=simple\nRestart=always\nExecStart=/usr/local/bin/swu/.venv/bin/gunicorn --config gunicorn_config.py main:app\n" | $TEE -a /etc/systemd/system/swu.service >/dev/null
-$ECHO -e "[Install]\nWantedBy=multi-user.target" | $TEE -a /etc/systemd/system/swu.service >/dev/null
+$ECHO "Which user must run the service ? (It may good to have the same user than owned of WEB_ROOT)"
 
-$ECHO "File /etc/systemd/system/swu.service created"
+read -p "Type user > " username
+
+$ECHO -e "[Unit]\nDescription=SWU service by Mijux\nAfter=multi-user.target\n" | $TEE /etc/systemd/system/swu.service >/dev/null
+$ECHO -e "[Service]\nType=simple\nRestart=always\nUser=${username}\nExecStart=bash ${destination_bin}/service-run.sh\n" | $TEE -a /etc/systemd/system/swu.service >/dev/null
+$ECHO -e "[Install]\nWantedBy=multi-user.target" | $TEE -a /etc/systemd/system/swu.service >/dev/null
