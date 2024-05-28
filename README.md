@@ -39,7 +39,7 @@ You will find the steps to setup the project
 
 You will need the following assets:
 - A personnal server where you can run python program and store you static website
-- A github action that create a release (you can create release manually)
+- A github action that creates a release (you can create releases manually)
     - [Here](workflow.example.yaml) you can find an example of a github workflow to create release
     - When creating a release, you must set its tag as *latest*
 - A github webhook that is triggered when a release a created on you repository
@@ -49,7 +49,7 @@ You will need the following assets:
 
 ### Installation
 
-You are several choices:
+You have several choices:
 1. Using docker
 2. Install as systemd service
 3. Run manually
