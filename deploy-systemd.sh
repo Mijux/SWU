@@ -3,6 +3,7 @@
 CP=$(whereis cp | awk '{print $2}')
 ECHO=$(whereis echo | awk '{print $2}')
 TEE=$(whereis tee | awk '{print $2}')
+MKDIR=$(whereis mkdir | awk '{print $2}')
 PYTHON3=$(whereis python3 | awk '{print $2}')
 
 if [ "$EUID" -ne 0 ]
@@ -18,8 +19,8 @@ read -p ": " confirm
 if [[ "$confirm" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     $ECHO "Perfect, let's go !"
     $ECHO "FYI: You can delete the service by deleting the following file:"
-    $ECHO "\t/usr/local/bin/swu/ folder"
-    $ECHO "\t/etc/systemd/system/swu.service file"
+    $ECHO -e "\t/usr/local/bin/swu/ folder"
+    $ECHO -e "\t/etc/systemd/system/swu.service file"
 else
     $ECHO "Bye ! :("
     exit 1
