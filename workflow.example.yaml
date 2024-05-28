@@ -1,0 +1,32 @@
+name: Create a release example
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Here create step that build you website if needed
+
+      - name: Create artifacts
+        run: |
+          tar zcf website-${{ github.ref_name }}.tar.gz static_files/*
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          make_latest: true
+          files: |
+            website-${{ github.ref_name }}.tar.gz

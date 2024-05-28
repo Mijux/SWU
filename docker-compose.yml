@@ -1,0 +1,11 @@
+services:
+  swu:
+    container_name: swu
+    restart: always
+    build:
+      context: .
+    ports:
+      ${DOCKER_BIND_ADDR}:${DOCKER_PORT}:8000
+    volumes:
+      ${DOCKER_LOCAL_PATH}:/app
+      ${WEB_ROOT}:${WEB_ROOT}
