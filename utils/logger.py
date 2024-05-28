@@ -27,10 +27,13 @@ def setup_logger():
 
     if LOG_USE_SYSLOG.lower() in ["true", "1"]:
         LOG_USE_SYSLOG = True
-    elif LOG_FILE_PATH is None:
-        raise ConfigurationException(
-            "LOG_USE_SYSLOG is False, LOG_FILE_PATH can't be None"
-        )
+    else:
+        LOG_USE_SYSLOG = False
+
+        if LOG_FILE_PATH is None:
+            raise ConfigurationException(
+                "LOG_USE_SYSLOG is False, LOG_FILE_PATH can't be None"
+            )
 
     log_lvl = LogLevel._member_map_.get(LOG_LEVEL)
     if log_lvl is None:
