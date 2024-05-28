@@ -53,6 +53,8 @@ def setup_logger():
     lggr.addHandler(handler)
     lggr.addHandler(handler_stdout)
 
+    lggr.info("Starting SWU")
+
 
 def get_logger() -> Logger:
     return getLogger("SWU")
