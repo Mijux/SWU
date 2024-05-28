@@ -114,6 +114,10 @@ You are several choices:
     .venv/bin/gunicorn --config gunicorn_config.py main:app
     ```
 
+### Troubleshooting 
+
+If you have error, it could a permission error, verify that SWU has the right to delete, create files in you WEB_ROOT. One possibility is to run SWU as www-data (if you WEB_ROOT is owned by www-data)
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
