@@ -4,8 +4,11 @@ services:
     restart: always
     build:
       context: .
+      dockerfile: ./Dockerfile
+      tags:
+        - "swu:latest" 
     ports:
-      ${DOCKER_BIND_ADDR}:${DOCKER_PORT}:8000
+      - ${DOCKER_BIND_ADDR}:${DOCKER_PORT}:8000
     volumes:
-      ${DOCKER_LOCAL_PATH}:/app
-      ${WEB_ROOT}:${WEB_ROOT}
+      - ${DOCKER_LOCAL_PATH}:/data
+      - ${WEB_ROOT}:${WEB_ROOT}
