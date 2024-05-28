@@ -111,7 +111,7 @@ You are several choices:
 
 4. Run it
     ```bash
-    gunicorn --config gunicorn_config.py main:app
+    .venv/bin/gunicorn --config gunicorn_config.py main:app
     ```
 
 ## Contributing
