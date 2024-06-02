@@ -59,11 +59,13 @@ You have several choices:
 3. Run manually
 
 In all cases, clone or download the repository:
+
     ```bash
     git clone https://github.com/Mijux/SWU.git
     ```
 
 Or using cURL:
+
     ```bash
     curl -L https://github.com/Mijux/SWU/archive/main.tar.gz -o SWU.tar.gz
     tar xzf SWU.tar.gz
@@ -72,11 +74,13 @@ Or using cURL:
     ```
 
 Navigate to the folder:
+
     ```bash
     cd SWU
     ```
 
 Then, configure your `.env`:
+
     ```bash
     cp .env.example .env
     # Open it with your prefered editor to set the variables
