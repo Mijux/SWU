@@ -60,31 +60,31 @@ You have several choices:
 
 In all cases, clone or download the repository:
 
-    ```bash
-    git clone https://github.com/Mijux/SWU.git
-    ```
+```bash
+git clone https://github.com/Mijux/SWU.git
+```
 
 Or using cURL:
 
-    ```bash
-    curl -L https://github.com/Mijux/SWU/archive/main.tar.gz -o SWU.tar.gz
-    tar xzf SWU.tar.gz
-    rm SWU.tar.gz
-    mv SWU-main SWU
-    ```
+```bash
+curl -L https://github.com/Mijux/SWU/archive/main.tar.gz -o SWU.tar.gz
+tar xzf SWU.tar.gz
+rm SWU.tar.gz
+mv SWU-main SWU
+```
 
 Navigate to the folder:
 
-    ```bash
-    cd SWU
-    ```
+```bash
+cd SWU
+```
 
 Then, configure your `.env`:
 
-    ```bash
-    cp .env.example .env
-    # Open it with your prefered editor to set the variables
-    ```
+```bash
+cp .env.example .env
+# Open it with your prefered editor to set the variables
+```
 
 You can now follow the process of your choice:
 
