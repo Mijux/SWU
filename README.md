@@ -120,6 +120,22 @@ You can now follow the process of your choice:
     .venv/bin/gunicorn --config gunicorn_config.py main:app
     ```
 
+### Installation
+
+Now it's time to update your website!
+
+Once the update is complete, use the following commands to push the changes through and trigger the porcesses correctly:
+
+```bash
+git add myfile
+git commit -m "my commit"
+git push
+git tag v0.1.2
+git push origin v0.1.2
+```
+
+The github workflow should be triggered automatically. Once this is complete, the site will be updated almost immediately.
+
 ### Troubleshooting 
 
 If you have error, it could a permission error, verify that SWU has the right to delete, create files in you WEB_ROOT. One possibility is to run SWU as www-data (if you WEB_ROOT is owned by www-data)
