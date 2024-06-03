@@ -44,6 +44,10 @@ You will need the following assets:
     - When creating a release, you must set its tag as *latest*
 - A github webhook that is triggered when a release a created on you repository
     - You will need setup a webhook secret
+    - Refer to the [official Github documentaion](https://docs.github.com/en/webhooks/using-webhooks/creating-webhooks) for more details on creating a webhook
+    - Make sure to set the `Content type` to `application/json`
+    - In the "Which events would you like to trigger this webhook?" section, select "Let me select individual events."
+    - Ensure you check at least the "**Release**" event
 - A [Fine-grained personal access tokens](https://github.com/settings/tokens?type=beta) with at least those repository  permissions:
     - *Read-Only* on **Contents** 
 
@@ -54,65 +58,83 @@ You have several choices:
 2. Install as systemd service
 3. Run manually
 
+In all cases, clone or download the repository:
+
+```bash
+git clone https://github.com/Mijux/SWU.git
+```
+
+Or using cURL:
+
+```bash
+curl -L https://github.com/Mijux/SWU/archive/main.tar.gz -o SWU.tar.gz
+tar xzf SWU.tar.gz
+rm SWU.tar.gz
+mv SWU-main SWU
+```
+
+Navigate to the folder:
+
+```bash
+cd SWU
+```
+
+Then, configure your `.env`:
+
+```bash
+cp .env.example .env
+# Open it with your prefered editor to set the variables
+```
+
+You can now follow the process of your choice:
+
 #### Docker
 
-1. Clone the repository
+1. Create the `swu-data` directory
     ```bash
-    git clone https://github.com/Mijux/SWU.git && cd SWU
+    mkdir swu-data
     ```
 
-2. Configure you .env
-    ```bash
-    cp .env.example .env
-    # Then open it with you prefered editor to set the vars
-    ```
-
-3. Run
+2. Run
     ```bash
     docker compose up -d
     ```
 
 #### Systemd service
 
-1. Clone the repository
-    ```bash
-    git clone https://github.com/Mijux/SWU.git && cd SWU
-    ```
-
-2. Configure you .env
-    ```bash
-    cp .env.example .env
-    # Then open it with you prefered editor to set the vars
-    ```
-
-3. Deploy service
+- Deploy service
     ```bash
     sudo bash deploy-systemd.sh
     ```
 
 #### Manually
 
-1. Clone the repository
-    ```bash
-    git clone https://github.com/Mijux/SWU.git && cd SWU
-    ```
-
-2. Configure you .env
-    ```bash
-    cp .env.example .env
-    # Then open it with you prefered editor to set the vars
-    ```
-
-3. Create you virtual env
+1. Create you virtual env
     ```bash
     python3 -m venv .venv
     .venv/bin/pip3 install -r requirements.txt
     ```
 
-4. Run it
+2. Run it
     ```bash
     .venv/bin/gunicorn --config gunicorn_config.py main:app
     ```
+
+### Installation
+
+Now it's time to update your website!
+
+Once the update is complete, use the following commands to push the changes through and trigger the porcesses correctly:
+
+```bash
+git add myfile
+git commit -m "my commit"
+git push
+git tag v0.1.2
+git push origin v0.1.2
+```
+
+The github workflow should be triggered automatically. Once this is complete, the site will be updated almost immediately.
 
 ### Troubleshooting 
 
