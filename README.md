@@ -2,7 +2,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/Mijux/SWU">
-    <img src="justseat.png" alt="Rocket Logo" width="250px" height="250px" style="border-radius: 50%;object-fit: contain;">
+    <img src="justseat.png" alt="Rocket Logo" width="250px" height="250px"/>
   </a>
 
   <h3 align="center">SWU</h3>
